@@ -9,8 +9,8 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Streamlit cache
-.streamlit/
+# Streamlit cache (exceto config)
+.streamlit/*.cache
 
 # Sistema
 .DS_Store
