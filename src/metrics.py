@@ -149,10 +149,10 @@ def distribuicao_faixa(df_prova: pd.DataFrame) -> pd.DataFrame:
     """Contagem de presentes por faixa de desempenho."""
     p = _presentes(df_prova)
     return (
-        p["Desempenho"]
-        .value_counts()
-        .reset_index()
-        .rename(columns={"index": "Faixa", "Desempenho": "Qtd"})
+        p.groupby("Desempenho", observed=True)
+        .size()
+        .reset_index(name="Qtd")
+        .rename(columns={"Desempenho": "Faixa"})
     )
 
 

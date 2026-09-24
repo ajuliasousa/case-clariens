@@ -132,7 +132,7 @@ def render(fact_prova, fact_area, dim_aluno, dim_avaliacao):
         with tab_faixa:
             dist = m.distribuicao_faixa(df_f)
             dist["Faixa"] = pd.Categorical(
-                dist["Desempenho"] if "Desempenho" in dist.columns else dist["Faixa"],
+                dist["Faixa"],
                 categories=ORDEM_FAIXAS, ordered=True)
             dist = dist.sort_values("Faixa")
             fig_pie = go.Figure(go.Pie(
