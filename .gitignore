@@ -1,5 +1,5 @@
-# Dados brutos (não subir arquivos do case)
-data/
+# Lock files do Excel (gerados quando o arquivo está aberto)
+data/.~lock.*
 
 # Ambiente virtual
 venv/
