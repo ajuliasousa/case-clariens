@@ -1,0 +1,18 @@
+# Dados brutos (não subir arquivos do case)
+data/
+
+# Ambiente virtual
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Streamlit cache
+.streamlit/
+
+# Sistema
+.DS_Store
+*.log
+nohup.out
