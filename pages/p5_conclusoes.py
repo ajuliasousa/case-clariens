@@ -65,7 +65,7 @@ def render(fact_prova, fact_area, dim_aluno, dim_avaliacao):
          "O risco é portanto concentrado na entrada do Ciclo Básico, não distribuído uniformemente, "
          "o que aponta para dificuldade de adaptação ao currículo médico nos primeiros anos."),
         ("8. GO é a área mais forte em 4 das 6 unidades; o gap interno varia até 10,7 pp",
-         "Cirurgia (GO) lidera o desempenho em ARAGUARI (64,7%), ITUMBIARA (58,4%), "
+         "Ginecologia e Obstetrícia (GO) lidera o desempenho em ARAGUARI (64,7%), ITUMBIARA (58,4%), "
          "SALVADOR (66,4%) e VITORIA DA CONQUISTA (70,9%). "
          "PREV lidera em BARREIRAS (66,3%) e EUNAPOLIS (64,6%). "
          "O gap entre área mais forte e mais fraca dentro de cada unidade varia de **4,6 pp** (SALVADOR) "
