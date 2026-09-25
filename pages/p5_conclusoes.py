@@ -122,32 +122,57 @@ def render(fact_prova, fact_area, dim_aluno, dim_avaliacao):
 
     # ── Recomendações ─────────────────────────────────────────────────────────
     st.subheader("📌 Recomendações de Gestão Acadêmica")
-    st.markdown("""
-**1. Programa de intervenção imediata em ITUMBIARA e no Ciclo Básico**
+    st.caption("Cada recomendação segue a estrutura **Problema → Evidência → Ação → Métrica de acompanhamento**.")
 
-ITUMBIARA tem 40,7% de proficiência e 20 alunos em risco — o pior resultado em ambos os indicadores.
-As séries 9 e 10 têm proficiência de 42,2% e 50,9%, respectivamente.
-Recomenda-se criar um programa de reforço com tutoria individualizada, usando a lista de alunos em risco
-gerada pelo critério composto como ponto de partida imediato.
+    recomendacoes = [
+        (
+            "🔴 Ação 1 — Intervenção imediata em ITUMBIARA",
+            "**Problema:** Única unidade com proficiência abaixo de 50% e sem resposta ao ensino.",
+            "**Evidência:** 40,7% de proficiência — a mais baixa da instituição. "
+            "Queda de proficiência em AV3 (49,1% → 33,3%). "
+            "Gap Diagnóstica→Desempenho de apenas **3,2 pp**, contra média de **8,9 pp** nas demais unidades — "
+            "o ensino não está convertendo em ganho de desempenho. "
+            "20 dos 50 alunos em risco da instituição (40%) estão nesta unidade.",
+            "**Ação:** Auditoria pedagógica focada em CM (53,2%) e CIR (55,8%), as duas áreas mais fracas. "
+            "Programa de reforço individualizado para os 20 alunos em risco, usando o ranking do score contínuo "
+            "para priorizar os casos mais graves. Investigação da queda abrupta em AV3 — "
+            "possível troca de docente, mudança de conteúdo ou problema na aplicação da avaliação.",
+            "**Métrica:** Proficiência AV1-2027 ≥ 55% · Gap Diagnóstica→Desempenho ≥ 6 pp · Alunos em risco ≤ 10.",
+        ),
+        (
+            "🟠 Ação 2 — Programa de nivelamento para Série 9 e Ciclo Básico",
+            "**Problema:** Gap de 24 pp entre Ciclo Básico e Clínico indica que alunos chegam sem base suficiente para o currículo médico.",
+            "**Evidência:** Série 9 com **42,2%** de proficiência e **25,3%** dos alunos abaixo de 50 — "
+            "o pior resultado entre todas as séries. "
+            "19 dos 50 alunos em risco (38%) estão na série 9. "
+            "Ciclo Básico: 47,3% de proficiência vs 71,3% do Ciclo Clínico.",
+            "**Ação:** Implementar diagnóstico de entrada padronizado antes da AV1 para identificar lacunas de base. "
+            "Criar trilha de nivelamento com conteúdos pré-requisito do currículo médico. "
+            "Monitoramento mensal dos alunos da série 9 com alerta automático para coordenação "
+            "quando nota cair abaixo de 50 em qualquer avaliação.",
+            "**Métrica:** % abaixo de 50 na Série 9 ≤ 15% na próxima coorte · Proficiência Ciclo Básico ≥ 55%.",
+        ),
+        (
+            "🟡 Ação 3 — Revisão curricular de Clínica Médica (CM)",
+            "**Problema:** CM é a área mais fraca em 5 das 6 unidades — não é problema de unidade isolada, é sistêmico.",
+            "**Evidência:** Média institucional de CM **58,6%** vs PREV **64,9%** — gap de **6,3 pp**. "
+            "CM é a área mais fraca em ARAGUARI (54,0%), BARREIRAS (56,3%), ITUMBIARA (53,2%), "
+            "SALVADOR (61,8%) e VITORIA DA CONQUISTA (65,6%). "
+            "Apenas EUNAPOLIS foge ao padrão, com CIR como área mais fraca.",
+            "**Ação:** Revisão do material didático e carga horária de CM em todas as unidades. "
+            "Benchmarking com VITORIA DA CONQUISTA — melhor resultado em CM (65,6%) — "
+            "para mapear práticas pedagógicas replicáveis. "
+            "Foco especial em ARAGUARI (54,0%) e ITUMBIARA (53,2%), onde o problema é mais grave.",
+            "**Métrica:** CM ≥ 62% institucional na próxima avaliação · CM de ARAGUARI e ITUMBIARA ≥ 58%.",
+        ),
+    ]
 
----
-
-**2. Reforço específico em Clínica Médica (CM) em toda a instituição**
-
-CM é a área mais fraca em 5 das 6 unidades, com média de 58,6% — 6,3 pp abaixo da área mais forte (PREV).
-Isso indica problema de conteúdo transversal, não isolado a uma unidade.
-Recomenda-se revisar material didático, carga horária e metodologia de CM,
-com foco especial em ARAGUARI (54,0%) e ITUMBIARA (53,2%).
-
----
-
-**3. Investigar e replicar as práticas de VITORIA DA CONQUISTA**
-
-Com 83,4% de proficiência, crescimento consistente (+6,3 pts de AV1 a AV4) e apenas 2 alunos em risco,
-VITORIA DA CONQUISTA é o benchmark da instituição.
-Recomenda-se mapear suas práticas pedagógicas e modelo de acompanhamento de alunos
-para replicar nas demais unidades, especialmente ITUMBIARA e BARREIRAS.
-""")
+    for titulo, problema, evidencia, acao, metrica in recomendacoes:
+        with st.expander(titulo, expanded=True):
+            st.markdown(problema)
+            st.markdown(evidencia)
+            st.markdown(acao)
+            st.success(metrica)
 
     st.divider()
 
