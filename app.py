@@ -24,6 +24,7 @@ PAGINAS = [
     "🏫 Análise por Unidade",
     "📅 Análise Temporal",
     "👤 Aluno Individual",
+    "📈 Score de Risco",
     "💡 Conclusões Executivas",
 ]
 
@@ -62,6 +63,8 @@ elif pagina_ativa == PAGINAS[3]:
     from pages.p3_temporal import render
 elif pagina_ativa == PAGINAS[4]:
     from pages.p4_aluno import render
+elif pagina_ativa == PAGINAS[5]:
+    from pages.p6_risco import render
 else:
     from pages.p5_conclusoes import render
 

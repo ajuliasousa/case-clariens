@@ -267,6 +267,59 @@ def perc_alunos_em_risco(df_prova: pd.DataFrame) -> float:
     return total_alunos_em_risco(df_prova) / t if t else 0.0
 
 
+def score_risco_continuo(df_prova: pd.DataFrame, dim_aluno: pd.DataFrame) -> pd.DataFrame:
+    """
+    Score de risco contínuo (0-100) por aluno baseado em:
+    - Nível: média simples das notas (onde o aluno está)
+    - Trajetória: inclinação OLS das 4 notas (para onde está indo)
+      β = (−3×AV1 − 1×AV2 + 1×AV3 + 3×AV4) / 20
+    Score = 0.6×(1 − nível/100) + 0.4×max(0, −trajetória/30)
+    Quadrantes: Crítico / Alerta / Recuperação / Sólido
+    """
+    p = _presentes(df_prova).copy()
+    p["Avaliacao"] = pd.Categorical(p["Avaliacao"], categories=ORDEM_AVALIACOES, ordered=True)
+    pivot = p.pivot_table(index="RA", columns="Avaliacao", values="Nota_Avalia")
+
+    # só alunos com pelo menos 2 avaliações presentes
+    pivot = pivot.dropna(thresh=2)
+
+    # nível: média das notas presentes
+    nivel = pivot.mean(axis=1)
+
+    # trajetória OLS: coeficientes para 4 pontos igualmente espaçados
+    # β = (−3×t1 − 1×t2 + 1×t3 + 3×t4) / 20
+    # para alunos com avaliações faltantes, usa média das disponíveis no lugar
+    cols = [c for c in ORDEM_AVALIACOES if c in pivot.columns]
+    pesos_ols = {"AV1T-2026.1": -3, "AV2T-2026.1": -1, "AV3T-2026.2": 1, "AV4T-2026.2": 3}
+    numerador = sum(
+        pesos_ols.get(c, 0) * pivot[c].fillna(pivot.mean(axis=1))
+        for c in cols
+    )
+    trajetoria = numerador / 20
+
+    # score: nível contribui 60%, queda contribui 40%
+    # max(0, -traj) ignora melhora — melhora não é risco
+    score = (0.6 * (1 - nivel / 100) + 0.4 * ((-trajetoria).clip(lower=0) / 30)).clip(0, 1) * 100
+
+    # quadrantes baseados em mediana de nível e trajetória zero
+    mediana_nivel = nivel.median()
+
+    def _quadrante(row):
+        n, t = row["Nivel"], row["Trajetoria"]
+        if n < mediana_nivel and t < 0:   return "🔴 Crítico"
+        if n >= mediana_nivel and t < 0:  return "🟠 Alerta"
+        if n < mediana_nivel and t >= 0:  return "🟡 Recuperação"
+        return "🟢 Sólido"
+
+    df_score = pd.DataFrame({"Nivel": nivel, "Trajetoria": trajetoria, "Score": score}).reset_index()
+    df_score["Quadrante"] = df_score.apply(_quadrante, axis=1)
+    df_score["Score"] = df_score["Score"].round(1)
+    df_score["Nivel"] = df_score["Nivel"].round(1)
+    df_score["Trajetoria"] = df_score["Trajetoria"].round(2)
+
+    return df_score.merge(dim_aluno[["RA", "Aluno", "Unidade", "Serie", "Ciclo"]], on="RA", how="left")
+
+
 def severidade_risco(df_prova: pd.DataFrame) -> pd.DataFrame:
     """
     Retorna DataFrame com RA e nível de severidade para alunos em risco:
