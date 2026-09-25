@@ -64,13 +64,14 @@ def render(fact_prova, fact_area, dim_aluno, dim_avaliacao):
          "A série 10 tem 7,6%, a série 12 tem 5,7% e a série 11 apenas 2,6%. "
          "O risco é portanto concentrado na entrada do Ciclo Básico, não distribuído uniformemente, "
          "o que aponta para dificuldade de adaptação ao currículo médico nos primeiros anos."),
-        ("8. GO é a área mais forte em 4 das 6 unidades; o gap interno varia até 10,7 pp",
-         "Ginecologia e Obstetrícia (GO) lidera o desempenho em ARAGUARI (64,7%), ITUMBIARA (58,4%), "
-         "SALVADOR (66,4%) e VITORIA DA CONQUISTA (70,9%). "
-         "PREV lidera em BARREIRAS (66,3%) e EUNAPOLIS (64,6%). "
-         "O gap entre área mais forte e mais fraca dentro de cada unidade varia de **4,6 pp** (SALVADOR) "
-         "a **10,7 pp** (ARAGUARI), indicando que ARAGUARI tem desequilíbrio interno relevante "
-         "mesmo com proficiência geral próxima da média institucional."),
+        ("8. GO e PREV dominam todas as unidades; CM é consistentemente a mais fraca",
+         "Ginecologia e Obstetrícia (GO) e Preventiva (PREV) ocupam as duas primeiras posições em todas as 6 unidades, "
+         "com médias institucionais de **64,3%** e **64,9%** respectivamente — diferença de apenas 0,6 pp. "
+         "Na prática, as duas áreas são equivalentes em desempenho. "
+         "CM (Clínica Médica) fecha o ranking em todas as unidades com média de **58,6%** — "
+         "gap de **6,3 pp** em relação à melhor área. "
+         "O desequilíbrio interno mais relevante está em ARAGUARI: GO (64,7%) vs CM (54,0%) = **10,7 pp**, "
+         "o maior gap entre área mais forte e mais fraca de qualquer unidade."),
         ("9. A AV3 provoca queda institucional de 7,4 pp em relação à AV2; ITUMBIARA não responde ao ensino",
          "A proficiência cai de **64,5%** (AV2) para **57,1%** (AV3) — queda de **7,4 pp** "
          "no início do 2º semestre, padrão que se repete na nota média (62,4 → 61,2). "
